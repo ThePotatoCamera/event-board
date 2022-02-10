@@ -1,4 +1,4 @@
-# Información importante
+# Event boards written in Django!
 
 [![Build docker](https://github.com/ThePotatoCamera/event-board/actions/workflows/docker-image.yml/badge.svg)](https://github.com/ThePotatoCamera/event-board/actions/workflows/docker-image.yml)
 
