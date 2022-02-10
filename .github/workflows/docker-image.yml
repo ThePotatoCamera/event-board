@@ -1,7 +1,6 @@
 name: Build docker
 
 on:
-  workflow_dispatch:
   release:
     types: [prereleased, released]
   
