@@ -1,10 +1,15 @@
 # Información importante
 
-[![Build docker](https://github.com/ThePotatoCamera/event-board/actions/workflows/docker-image.yml/badge.svg)](https://github.com/ThePotatoCamera/appcenas/actions/workflows/docker-image.yml)
+[![Build docker](https://github.com/ThePotatoCamera/event-board/actions/workflows/docker-image.yml/badge.svg)](https://github.com/ThePotatoCamera/event-board/actions/workflows/docker-image.yml)
 
 ## Requirements
 
 Python 3.8 is required at least.
+
+## Installation
+
+You just have to `docker-compose up` the whole thing.
+Remember that it **requires** [the latest version of docker-compose](https://docs.docker.com/compose/install/#install-compose).
 
 ## Setting up the environment
 
