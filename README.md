@@ -8,7 +8,8 @@ Python 3.8 is required at least.
 
 ## Installation
 
-You just have to `docker-compose up` the whole thing.
+You just have to copy the `docker-compose.yml` file in your machine, change the environment variables to your needs, generate a `DJANGO_SECRET` and `docker-compose up` the whole thing.
+
 Remember that it **requires** [the latest version of docker-compose](https://docs.docker.com/compose/install/#install-compose).
 
 ## Setting up the environment
