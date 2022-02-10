@@ -16,7 +16,7 @@ services:
       - DATABASE_HOST=db
       - DATABASE_PORT=3306
       - REDIS_HOST=redis
-      - DJANGO_SECRET_KEY=37pl8dh8s41$w0-=_n1%9#%v5yd3hbv&!d6ilfx%jrs&@_w&8b
+      - DJANGO_SECRET_KEY=CHANGEME
       - DJANGO_SETTINGS_MODULE=event-board.config.local
       - ALLOWED_HOSTS=["*"]
     depends_on:
