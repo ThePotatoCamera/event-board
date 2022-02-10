@@ -1,0 +1,71 @@
+version: "3.8"
+services:
+  webapp:
+    container_name: event-board_gunicorn
+    image: ghcr.io/thepotatocamera/event-board:latest
+    networks:
+      - event-board
+    restart: always
+    command: gunicorn event-board.wsgi:application --bind 0.0.0.0:8000 --workers=4
+    volumes:
+      - staticfiles:/app/event-board/static
+    environment: 
+      - DATABASE_DB=event-board
+      - DATABASE_USER=usrevent
+      - DATABASE_PASS=event-board
+      - DATABASE_HOST=db
+      - DATABASE_PORT=3306
+      - REDIS_HOST=redis
+      - DJANGO_SECRET_KEY=37pl8dh8s41$w0-=_n1%9#%v5yd3hbv&!d6ilfx%jrs&@_w&8b
+      - DJANGO_SETTINGS_MODULE=event-board.config.local
+      - ALLOWED_HOSTS=["*"]
+    depends_on:
+      - db
+      - redis
+    
+  db:
+    container_name: event-board_mariadb
+    image: mariadb:10.5.11
+    networks:
+      - event-board
+    restart: always
+    environment: 
+      - MARIADB_RANDOM_ROOT_PASSWORD=yes
+      - MARIADB_DATABASE=event-board
+      - MARIADB_USER=usrevent
+      - MARIADB_PASSWORD=event-board
+    volumes:
+      - type: volume
+        source: db-data
+        target: /var/lib/mysql
+
+  nginx:
+    container_name: event-board_nginx
+    image: nginx:mainline-alpine
+    restart: always
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - staticfiles:/app/event-board/static
+    depends_on:
+      - webapp
+    networks:
+      - event-board
+    environment:
+      - VIRTUAL_HOST=localhost
+    ports:
+      - "80:80"
+      - "443:443"
+
+  redis:
+    container_name: event-board_redis
+    image: redis:6
+    restart: always
+    networks:
+      - event-board
+
+networks:
+  event-board:
+
+volumes:
+  staticfiles:
+  db-data:

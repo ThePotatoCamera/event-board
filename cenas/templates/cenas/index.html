@@ -1,0 +1,41 @@
+{% load i18n %}
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{% translate "Eventos de Joe Doe" %}</title>
+    <link rel="shortcut icon" href="{% static '/favicon.ico' %}" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <nav class="navbar navbar-light bg-light">
+      <div class="container-fluid">
+        <a href="{% url 'cenas:index' %}"><img src="{% static '/cenas/logo.png' %}" alt="" width="30" height="24"></a>
+        <span class="navbar-brand mb-0 h1">{% translate "Eventos de Joe Doe" %}</span>
+      </div>
+    </nav>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <h2 class="mt-3">{% translate "Eventos activos" %}</h2>
+          {% if eventosActivos %}
+          <table class="table">
+              <tbody>
+              {% for evento in eventosActivos %}
+                  <tr>
+                    <td>
+                      <a href="{% url 'cenas:detail' evento.id %}">{{ evento.tituloEvento }} - {{ evento.fechaEvento }}</a>
+                    </td>
+                  </tr>
+              {% endfor %}
+            </tbody>
+            </table>
+          {% else %}
+            <p>{% translate "No hay eventos activos" %}</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

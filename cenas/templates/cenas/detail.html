@@ -1,0 +1,62 @@
+{% load i18n %}
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{{ evento.tituloEvento }} - {% translate "Eventos de Joe Doe" %}</title>
+    <link rel="shortcut icon" href="{% static '/favicon.ico' %}" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <nav class="navbar navbar-light bg-light">
+      <div class="container-fluid">
+        <a href="{% url 'cenas:index' %}"><img src="{% static '/cenas/logo.png' %}" alt="" width="30" height="24"></a>
+        <span class="navbar-brand mb-0 h1">{% translate "Eventos de Joe Doe" %}</span>
+      </div>
+    </nav>
+  </head>
+  {% if not evento.activo %}
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col">
+          <p class="text-error">{% translate "El evento actual no está activo" %}</p>
+        </div>
+      </div>
+    </div>
+  </body>
+  {% else %}
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col">
+          <h1>{{ evento.tituloEvento }}</h1>
+          {% if error_message %}
+            <p class="text-error"><strong>{{ error_message }}</strong></p>
+          {% endif %}
+          <form action="{% url 'cenas:seleccionar' evento.id %}" method="post">
+            {% csrf_token %}
+            {% for cena in evento.seleccion_set.all %}
+              <input type="radio" class="form-check-input" name="cena" id="cena{{ forloop.counter }}" value="{{ cena.id }}"/>
+              <label for="cena{{ forloop.counter }}" class="form-check-label">{{ cena.cena }}</label><br>
+            {% endfor %}
+            {% if evento.permitirAlergenos %}
+              <input type="checkbox" class="form-check-input" name="alergeno" id="alergeno" value="True"/>
+                <label for="alergeno" class="form-check-label">{% translate "¿Tienes alguna alergia?" %}</label>
+            {% endif %}
+              <div class="form-floating mb-3 mt-3">
+                  <input class="form-control" type="text" name="dni" id="dni" value="{{ dnialmacenado }}" placeholder="" />
+              <label for="dni">{% translate "Introduce tu identificación" %}</label>
+            </div>
+            <div class="mb-3">
+              <input type="checkbox" class="form-check-input" name="recordar" id="recordar" value="True" />
+              <label for="recordar">{% translate "¿Recordar identificación? (Almacenaremos una cookie, por lo que das tu consentimiento a que la almacenemos)" %}</label>
+            </div>
+            <input class="mb-5 btn btn-success" type="submit" value="Enviar">
+          </form>
+          <a href="{% url 'cenas:index' %}"><button class="btn btn-secondary" type="button">{% translate "Volver a la lista" %}</button></a>
+        </div>
+      </div>
+    </div>
+  </body>
+  {% endif %}
+</html>
