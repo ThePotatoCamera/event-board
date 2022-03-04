@@ -5,7 +5,6 @@ on:
     types: [released]
   
 env:
-  REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
@@ -56,7 +55,7 @@ jobs:
       id: meta
       uses: docker/metadata-action@v3.6.1
       with:
-        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+        images: ${{ env.IMAGE_NAME }}
         
     - name: Build y push
       uses: docker/build-push-action@v2.6.1
