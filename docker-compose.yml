@@ -2,7 +2,7 @@ version: "3.8"
 services:
   webapp:
     container_name: event-board_gunicorn
-    image: ghcr.io/thepotatocamera/event-board:latest
+    image: event-board:latest
     networks:
       - event-board
     restart: always

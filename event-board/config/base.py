@@ -48,7 +48,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'appcenas.urls'
+ROOT_URLCONF = 'event-board.urls'
 
 TEMPLATES = [
     {
