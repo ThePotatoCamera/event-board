@@ -13,3 +13,5 @@ ENV LISTEN_PORT 8000
 EXPOSE 8000
 
 COPY . .
+
+ENTRYPOINT gunicorn event-board.wsgi:application --bind 0.0.0.0:8000 --workers=4
