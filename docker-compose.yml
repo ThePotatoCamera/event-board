@@ -6,7 +6,6 @@ services:
     networks:
       - event-board
     restart: always
-    command: gunicorn event-board.wsgi:application --bind 0.0.0.0:8000 --workers=4
     volumes:
       - staticfiles:/app/event-board/static
     environment: 
